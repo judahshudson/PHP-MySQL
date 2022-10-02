@@ -24,9 +24,6 @@ email VARCHAR(50),
 reg_date TIMESTAMP DEFUALT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
-$conn->close();
-?>
-
 if ($conn->query($sql) === TRUE {
     echo "Table MyGuests created successfully";
 } else {
