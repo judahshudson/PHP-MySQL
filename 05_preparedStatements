@@ -1,0 +1,92 @@
+
+// PREPARED STATMENTS with BOUND PARAMETERS
+
+
+// MySQLi
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// check connection
+if ($conn->connect_error) {
+    die("Connection failed: ") . $conn->connect_error;
+}
+
+// Prepare and Bind
+$stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)";
+$stmt->bind_param("sss", $firstname, $lastname, $email);
+
+// Set Parameters and Execute
+$firstname = "John";
+$lastname = "Doe";
+$email = "john@example.com";
+$stmt->execute();
+
+$firstname = "Mary";
+$lastname = "Moe";
+$email = "mary@example.com";
+$stmt->execute();
+
+$firstname = "Julie";
+$lastname = "Doolie";
+$email = "julie@example.com";
+$stmt->execute();
+
+echo "New records created successfully";
+
+$stmt->close();
+$conn->close();
+
+?>
+
+
+
+
+// PDO
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTON);
+
+    // Prepare SQL and Bind Parameters
+    $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) 
+    VALUES (:firstname, :lastname, :email)";    
+    $stmt->bindParam(':firstname', $firstname);
+    $stmt->bindParam(':lastname', $lastname);
+    stmt->bindParam(':email', $email);
+
+    // Insert a Row
+    $firstname = "John";
+    $lastname = "Doe";
+    $email = "john@example.com";
+    $stmt->execute();
+
+    // insert row
+    $firstname = "Mary";
+    $lastname = "Moe";
+    $email = "mary@example.com"
+    $stmt->execute();
+
+    $firstname = "Julie";
+    $lastname = "Doolie";
+    $email = "julie@example.com";
+    $stmt->execute();
+
+    echo "New records created successfully";
+}    catch(PDOException $e) {
+    echor "Error: " . $e->getMessage();
+}
+$conn = null;
+?>
+
