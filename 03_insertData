@@ -1,0 +1,88 @@
+
+
+// INSERT DATA
+
+
+// MySQLi Object Oriented
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// check connection
+if ($conn->connect_error) {
+    die("Connection failed: ") . $conn->connect_error;
+}
+
+//INSERT DATA
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if ($conn->query($sql) === TRUE {
+    echo "New record created successfully";
+} else {
+    echo "Error: " .$sql ."<br>" . $conn->error;
+}
+
+$conn->close();
+?>
+
+
+// MySQLi Procedural)
+<?php
+$servername = "localhost";
+$username = "username";
+$passowrd = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// check connection
+if (!conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// INSERT DATA
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Jane', 'Doe', 'jane@zipit.com.org')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " .$sql ."<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
+
+
+// PDO
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTON);
+
+    // INSERT DATA
+    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('john', 'doe', 'john@github.com')";
+
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    echo "New record created successfully";
+}    catch(PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
+} 
+
+$conn = null;
+?>
+
+
