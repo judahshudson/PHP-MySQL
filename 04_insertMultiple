@@ -1,0 +1,111 @@
+
+// INSERT MULTIPLE
+
+
+
+
+// MySQLi Object Oriented
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// check connection
+if ($conn->connect_error) {
+    die("Connection failed: ") . $conn->connect_error;
+}
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+// MULTIPLE RECORDS
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Mary', 'Moe', 'mary@example.com');
+$sql .- "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Julie', 'Doolie', 'julie@example.com');
+
+// ***INSERT MULTIPLE RECORDS***
+if ($conn->multi_query($sql) === TRUE {
+    echo "New records created successfully"
+} else {
+    echo "Error: " .$sql ."<br>" . $conn->error;
+}
+
+$conn->close();
+?>
+
+
+
+
+// MySQLi Procedural)
+<?php
+$servername = "localhost";
+$username = "username";
+$passowrd = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// check connection
+if (!conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Jane', 'Doe', 'jane@zipit.com.org')";
+// ***INSERT MULTIPLE RECORDS***
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Mary', 'Moe', 'mary@example.com');
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Julie', 'Doolie', 'julie@example.com');
+
+// ***INSERT MULTIPLE RECORDS***
+if (mysqli_multi_query($conn, $sql)) {
+    echo "New records created successfully"
+} else {
+    echo "Error: " .$sql ."<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
+
+
+
+
+// PDO
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTON);
+
+    // ***Begin The Transaction***
+    $conn->beginTransaction();
+    // ***our SQL statements***
+    $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('John', 'Doe', 'john@example.com')";
+    $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('Jane', 'Moe', 'jane@example.com')";
+    $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES ('Luke', 'Skywalker, 'luke@lucasmail.com')";
+
+    // ***Commit the Transaction***
+    $conn->commit();
+    echo "New records created successfully";
+}    catch(PDOException $e) {
+    // ***roll back the transaction if something failed
+    $conn->rollback();
+    echo "Error: " . $e->getMessage();
+} 
+
+$conn = null;
+?>
+
+
