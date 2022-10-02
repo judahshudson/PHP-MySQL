@@ -1,0 +1,100 @@
+
+// The following examples update the record with id=2 in the "MyGuests" table:
+
+
+
+// DELETE DATA from a table
+
+
+// MySQLi Object Oriented
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+// create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// check connection
+if ($conn->connect_error) {
+    die("Connection failed: ") . $conn->connect_error;
+}
+
+//***UPDATE***
+$sql = UPDATE MyGuests SET lastname='Doe' WHERE id=2";
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "Record deleted successfully";
+    }
+} else {
+    echo "Error deleting record: " . $conn->error;
+}
+
+$conn->close();
+?>
+
+
+
+
+// MySQLi PROCEDURAL
+ <?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+//***UPDATE***
+$sql = "UPDATE from MyGuests SET lastname='Doe' WHERE id=2";
+
+if (mysqli__query($conn, $sql)) {
+    echo "Record deleted successfully";
+  }
+} else {
+  echo "Error deleting record: " . $mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?> 
+
+
+
+
+// PDO
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception    
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTON);
+    
+    // ***UPDATE***
+    $sql = "UPDATE FROM MyGuests SET lastname='Doe' WHERE id=2";
+
+    // Prepare Statement
+    $stmt = $conn->prepare($sql);
+
+    // execute query
+    $stmt->execute();
+
+    // update message
+    echo $stmt->rowCount() .  " records UPDATED successfully";
+}    catch(PDOException $e) {
+    echor "Error: " . $e->getMessage();
+}
+
+$conn = null;
+?>
+
+
