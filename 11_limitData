@@ -1,0 +1,21 @@
+
+
+// LIMIT Data Selections From a MySQL Database
+
+
+// select all records from 1 - 30 (inclusive) from table called Orders
+$sql = "SELECT * FROM Orders LIMIT 30";
+
+// select records 16-25 (inclusive)
+$sql = "SELECT * FROM Orders LIMIT 10 OFFSET 15";
+
+// same selection, shorter syntax (not swap the  & 15)
+$sql = "SELECT * FROM Orders LIMIT 15, 10";
+
+
+
+// select records from 2 - 39 (inclusive) from a table called Menu
+$sql = "SELECT * FROM Menu LIMIT 36 OFFSET 1";
+$sql = "SELECT * FROM Menu LIMIT 1, 36";
+
+
